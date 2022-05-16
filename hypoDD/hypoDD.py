@@ -749,10 +749,10 @@ def hypoDD(log,hinputs,outfol='outputs',reloctype=1,fileout=0,hypoDDdata=[],iboo
                 Resstat calculates residuals statistics per event
                 This loop calculates residual statistics per station
                 """
-                [sta_np,sta_ns,sta_nnp,sta_nns,
-                 sta_rmsc,sta_rmsn,tmpr1,tmpr2] = statres(log,nsta,ndt,idata,reloctype,
-                                                          sta_lab,dt_ista1,dt_ista2,
-                                                          dt_idx,dt_res)
+                # [sta_np,sta_ns,sta_nnp,sta_nns,
+                #  sta_rmsc,sta_rmsn,tmpr1,tmpr2] = statres(log,nsta,ndt,idata,reloctype,
+                #                                           sta_lab,dt_ista1,dt_ista2,
+                #                                           dt_idx,dt_res)
 
                 """
                 Write output scratch mdat.reloc
