@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import numpy as np
 import datetime
 import sys
@@ -17,30 +16,40 @@ from utility.universal.geodetics import setorg,sdc2
 from utility.universal.raytrace import partials
 
 
-log = open('damping.log','w')
-
-if len(sys.argv)==4:
-    minlam = float(sys.argv[1])
-    maxlam = float(sys.argv[2])
-    nlam = int(sys.argv[3])
+if len(sys.argv)==5:
+    rinput = str(sys.argv[1])
+    minlam = float(sys.argv[2])
+    maxlam = float(sys.argv[3])
+    nlam = int(sys.argv[4])
 else:
+    rinput = str(input('Input File: '))
     minlam = float(input('Min Damp to Test: '))
     maxlam = float(input('Max Damp to Test: '))
     nlam = int(input('No. Damp to Test: '))
 
-log.write('Damping tests for: \n\n')
-log.write('Min. damping value tested: %f \n' % (10.**minlam))
-log.write('Max. damping value tested: %f \n' % (10.**maxlam))
-log.write('No. damping value tested: %i \n' % (nlam))
 
 """
 Read in default input file
 """
-[pinput,hinput, 
- reloctype,fileout,makedata,bootstrap_switch,hypoinv,
- plotting,plotstring,nplot,
- noiseswitch,noisediff,stdcc,stdct,
- nboot] = run_input(log,'run.inp')
+[inputfol,datfol,outfol,reloctype,fileout,makedata,hypoinv,
+ noiseswitch,noisediff,stdcc,stdct,nboot,nplot] = run_input(rinput)
+hinput = os.path.join(inputfol,'hypoDD.inp')
+pinput = os.path.join(inputfol,'ph2dt.inp')
+
+if reloctype==1:
+    outfol = os.path.join(outfol,'EDD')
+elif reloctype==2:
+    outfol = os.path.join(outfol,'SDD')
+elif reloctype==3:
+    outfol = os.path.join(outfol,'DDD')
+else:
+    outfol = os.path.join(outfol,'EDD')
+
+log = open(os.path.join(outfol,'damping.log'),'w')
+log.write('Damping tests for: \n\n')
+log.write('Min. damping value tested: %f \n' % (10.**minlam))
+log.write('Max. damping value tested: %f \n' % (10.**maxlam))
+log.write('No. damping value tested: %i \n' % (nlam))
 
 [fn_cc,fn_ct,fn_sta,fn_eve,
  fn_loc,fn_reloc,fn_res,fn_stares,fn_srcpar,
@@ -54,15 +63,20 @@ Read in default input file
 """
 Read in Data
 """
-[ev_date,ev_time,ev_cusp,ev_lat,ev_lon,ev_dep,
- ev_mag,ev_herr,ev_zerr,ev_res,
- sta_lab,sta_lat,sta_lon,
+fn_cc = os.path.join(datfol,fn_cc)
+fn_ct = os.path.join(datfol,fn_ct)
+fn_sta = os.path.join(datfol,fn_sta)
+fn_eve = os.path.join(datfol,fn_eve)
+txtfol = os.path.join(outfol,'txtoutputs')
+
+[ev_date,ev_time,ev_cusp,ev_lat,ev_lon,ev_dep,ev_mag,
+ ev_herr,ev_zerr,ev_res,sta_lab,sta_lat,sta_lon,
  dt_sta1,dt_sta2,dt_dt,dt_qual,dt_c1,dt_c2,dt_idx,
  dt_ista1,dt_ista2,dt_ic1,dt_ic2,dt_offse,dt_offss,
- nev,nsta,ndt,nccp,nccs,nctp,ncts]= dataprep(log,reloctype,fileout,
-                                             fn_cc,fn_ct,fn_sta,fn_eve,
-                                             idata,iphase,ncusp,icusp,maxdist,
-                                             amaxdct[0],amaxdcc[0])
+ nev,nsta,ndt,ncc,nct,nccp,nccs,nctp,
+ ncts]= dataprep(log,reloctype,fileout,fn_cc,fn_ct,
+                 fn_sta,fn_eve,idata,iphase,ncusp,
+                 icusp,maxdist,amaxdct[0],amaxdcc[0])
 
 """
 Declare Open Variables
@@ -112,7 +126,7 @@ else: # Clustering
         nclust = 1
         clust = np.zeros((nclust,nev+1),dtype='int')
         for i in range(1):
-            evtoclust = open('txtoutputs/clust_%i.dat' % i,'r')
+            evtoclust = open(os.path.join(outfol,('txtoutputs/clust_%i.dat' % i)),'r')
             clustlines = evtoclust.readlines()
             evtoclust.close()
 
@@ -126,8 +140,8 @@ else: # Clustering
                 count += len(line)
             clust[i,0] = count-1
     else:
-        [clust,noclust,nclust] = cluster(log,nev,ndt,idata,minobs_cc,minobs_ct,
-                                         dt_c1,dt_c2,ev_cusp)
+        [clust,noclust,nclust] = cluster(log,txtfol,nev,ndt,idata,minobs_cc,
+                                         minobs_ct,dt_c1,dt_c2,ev_cusp)
 
 """
 Initalise loop over iterations
@@ -192,20 +206,17 @@ for dampindx,damptmp in enumerate(adamp_tmp):
         ncusp = clust[icl,0]
         icusp = clust[icl,1:ncusp+1] #np.zeros(ncusp,dtype='int')
         
-        [ev_date,ev_time,ev_cusp,ev_lat,ev_lon,ev_dep,
-         ev_mag,ev_herr,ev_zerr,ev_res,
-         sta_lab,sta_lat,sta_lon,
+        [ev_date,ev_time,ev_cusp,ev_lat,ev_lon,ev_dep,ev_mag,
+         ev_herr,ev_zerr,ev_res,sta_lab,sta_lat,sta_lon,
          dt_sta1,dt_sta2,dt_dt,dt_qual,dt_c1,dt_c2,dt_idx,
          dt_ista1,dt_ista2,dt_ic1,dt_ic2,dt_offse,dt_offss,
-         nev,nsta,ndt,nccp,nccs,nctp,ncts]= dataprep(log,reloctype,fileout,
-                                                     fn_cc,fn_ct,fn_sta,fn_eve,
-                                                     idata,iphase,ncusp,icusp,maxdist,
-                                                     amaxdct[0],amaxdcc[0])
+         nev,nsta,ndt,ncc,nct,nccp,nccs,nctp,
+         ncts]= dataprep(log,reloctype,fileout,fn_cc,fn_ct,
+                         fn_sta,fn_eve,idata,iphase,ncusp,icusp,
+                         maxdist,amaxdct[0],amaxdcc[0])
     # Recount all data (to update for cluster subset)
-    nccold = nccp+nccs
-    nctold = nctp+ncts
-    ncc = nccp+nccs
-    nct = nctp+ncts
+    nccold = ncc
+    nctold = nct
     nevold = nev
 
     """
@@ -300,9 +311,9 @@ for dampindx,damptmp in enumerate(adamp_tmp):
         """
         Calculate double difference vector and theor dt
         """
-        [dt_cal,dt_res] = dtres(reloctype,ndt,nsrc,dt_dt,dt_idx,
-                                dt_ista1,dt_ista2,dt_ic1,dt_ic2,
-                                src_t,tmp_ttp,tmp_tts)
+        [dt_cal,dt_res,tt] = dtres(reloctype,ndt,nsrc,dt_dt,dt_idx,
+                                   dt_ista1,dt_ista2,dt_ic1,dt_ic2,
+                                   src_t,tmp_ttp,tmp_tts)
         """
         Get a priori weights and reweight residuals
         """
@@ -310,7 +321,7 @@ for dampindx,damptmp in enumerate(adamp_tmp):
                                        maxres_cross,maxres_net,maxdcc,maxdct,minwght,
                                        wt_ccp,wt_ccs,wt_ctp,wt_cts,
                                        dt_c1,dt_c2,dt_idx,dt_qual,dt_res,
-                                       dt_offse,dt_offss,0)
+                                       dt_offse,dt_offss)
         """
         Skip outliers and/or air quakes
         """
@@ -495,8 +506,10 @@ for dampindx,damptmp in enumerate(adamp_tmp):
             adep = adep/nsrc
 
             # Document centroid shift
-            log.write('\n(hypoDD) Cluster centroid at: %10.6f  %11.6f  %9.6f \n' % (alat,alon,adep))
-            log.write('(hypoDD) Mean centroid (origin) shift in x,y,z,t [m,ms]: %7.1f,%7.1f,%7.1f,%7.1f \n' % (xav,yav,zav,tav))
+            log.write('\n(hypoDD) Cluster centroid at: %10.6f  %11.6f  %9.6f \n' % 
+                      (alat,alon,adep))
+            log.write('(hypoDD) Mean centroid (origin) shift in x, y, z, t [m,ms]: %7.1f, %7.1f, %7.1f, %7.1f \n' % 
+                      (xav,yav,zav,tav))
             # Close iteration files
             # if fileout==0:
             #     delta_source.close()
@@ -528,10 +541,10 @@ for dampindx,damptmp in enumerate(adamp_tmp):
 
 
 # Save Outputs in Case Plotting Breaks
-np.savetxt('DampTested.dat',adamp_tmp)
-np.savetxt('R1NormsDamping.dat',dampnorms[:,0])
-np.savetxt('XNormsDamping.dat',dampnorms[:,1])
-np.savetxt('R2NormsDamping.dat',dampnorms[:,2])
+np.savetxt(os.path.join(outfol,'DampTested.dat'),adamp_tmp)
+np.savetxt(os.path.join(outfol,'R1NormsDamping.dat'),dampnorms[:,0])
+np.savetxt(os.path.join(outfol,'XNormsDamping.dat'),dampnorms[:,1])
+np.savetxt(os.path.join(outfol,'R2NormsDamping.dat'),dampnorms[:,2])
 
 # Spline Fit The L-Curve
 cutoff = len(adamp_tmp)

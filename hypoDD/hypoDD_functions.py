@@ -1,6 +1,7 @@
 import numpy as np
 import datetime
 import os
+
 # Other HypoDD functions
 from utility.universal.geodetics import sdc2
 from hypoDD.hypoDD_files import readdata,readevent
@@ -191,6 +192,7 @@ def cleanarrays(log,reloctype,nev,ev_cusp,ev_date,ev_time,ev_lat,ev_lon,ev_dep,e
             if reloctype==1 or reloctype==3:
                 dt_ic2[i] = np.where(ev_cusp==dt_c2[i])[0][0]
         except:
+            import pdb; pdb.set_trace()
             raise Exception('FATAL ERROR INDEXING. Clean arrays.')
     """
     Return all the updated arrays

@@ -21,9 +21,11 @@ from utility.synthetics.synthModel import synth_generate
 from utility.synthetics.noise import generate_noise
 from utility.synthetics.hypoinv import hypoinverse_wrapper
 
+
 """
+
 :::
-From relocDD-py VERSION 1.0 (DEC 2021)
+From relocDD-py VERSION 1.0
 :::
 relocDD-py includes multiple method implementations of double-difference (DD)
 relocation including event-pair (hypoDD), station-pair, and double-pair DD methods
