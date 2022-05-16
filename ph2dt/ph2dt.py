@@ -17,7 +17,7 @@ precursory data is read in the ph2dt_subfunc.ph2dt_prep function.
 """
 
 def ph2dt(log,pinputs,makedata=0,datfol='datfiles',outfol='outputs',reloctype=1,fileout=0,
-          idata=3,MAXEV=1500,datavals=[]):
+          idata=3,MAXEV=10000,datavals=[]):
     """
     Catalog Building Function
     :::

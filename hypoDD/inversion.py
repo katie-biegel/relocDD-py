@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 
 # Other hypoDD functions
 from hypoDD.hypoDD_functions import resstat
-
 from methodTypes.eventPair.hypoDD_ev import svdg_ev,svdunpack_ev,lsqrprep_ev,lsqrunpack_ev
 from methodTypes.stationPair.hypoDD_stat import svdg_st,svdunpack_st,lsqrprep_st,lsqrunpack_st
 from methodTypes.doublePair.hypoDD_doub import svdg_doub,svdunpack_doub,lsqrprep_doub,lsqrunpack_doub
