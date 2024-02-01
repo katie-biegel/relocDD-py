@@ -2,7 +2,7 @@
 
 <h4> <u> Versioning </u> </h4>
 
-<p> v1.0 - Released Sep. 2023 </p>
+<p> v1.0 - Released Feb. 2024 </p>
 
 <h4> <u> Software Description </u> </h4>
 
@@ -58,7 +58,7 @@
 
 <h5> <u> For this Software in Particular: </u> </h5>
 
-> SOFTWARE DOI
+>![image](https://github.com/katie-biegel/relocDD-py/assets/32553479/ebf91cfe-c818-4e93-a6a9-aea2596a4706)
 
 <h5> <u> For the Event-Pair DD Method: </u> </h5>
 
@@ -78,7 +78,7 @@
 
 <p> This software is released opensource under the <strong> GNU General Public License </strong>.  A detailed license can be seen in <strong> LICENSE.txt </strong>. </p>
 
-<p> Copyright (c) 2022 Katherine Biegel </p>
+<p> Copyright (c) 2024 Katherine Biegel </p>
 
 <p> <strong> RELOCDD-PY </strong> is free software: you may redistribute or modify it under the terms of the GNU General Public License. <strong> RELOCDD-PY </strong> is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. </p>
 
@@ -86,7 +86,7 @@
 
 <p> This project is an open-source project and will continue to be updated over time.  We welcome all contributions to this project! </p>
 
-<p> <strong> <em> Last Update: Sept. 2023 </em> </strong> </p>
+<p> <strong> <em> Last Update: Feb. 2024 </em> </strong> </p>
 
 <h4> <u> Code Support and Contact </u> </h4>
 
