@@ -8,15 +8,14 @@
 
 <p> <strong> RELOCDD-PY </strong> is a Python program for relocating earthquakes that employs various geometries of the double-difference (DD) method.  These include: </p>
 <ol>
-	<li> Event-Pair DD (Waldhauser and Ellsworth, 2000) </li>
-	<li> Station-Pair DD (Zhang et. al., 2010) </li>
-	<li> Double-Pair DD (Guo and Zhang, 2016) </li>
-	<li> Combined-Pair DD (Biegel and Dettmer, 2022) </li>
+	<li> Event-Pair DD (Waldhauser and Ellsworth, BSSA, 2000) </li>
+	<li> Station-Pair DD (Zhang et. al., GRL, 2010) </li>
+	<li> Double-Pair DD (Guo and Zhang, GJI, 2016) </li>
 </ol>
 
 <h4> <u> Where to Download Code </u> </h4>
 
-<p> This code is available to download on github: https://github.com/ucalgary-seismology (UPDATE LINK LATER). </p>
+<p> This code is available to download on github: https://github.com/katie-biegel/relocDD-py </p>
 
 <p> To download code you can also run: </p>
 
@@ -69,11 +68,11 @@
 
 <h5> <u> For the Station-Pair DD Method: </u> </h5>
 
-> Guo, Hao and Haijiang, Zhang, 2016, Development of double-pair double difference earthquake location algorithm for improving earthquake locations, GJI, 208(1), 333-348.
+> Zhang, Haijiang, Naudeau, Robert M., and M. Nafi Toksoz, 2010, Locating nonvolcanic tremors beneath the San Andreas fault using a station-pair double-difference location method, GRL, 37(13).
 
 <h5> <u> For the Double-Pair DD Method: </u> </h5>
 
-> Zhang, Haijiang, Naudeau, Robert M., and M. Nafi Toksoz, 2010, Locating nonvolcanic tremors beneath the San Andreas fault using a station-pair double-difference location method, GRL, 37(13).
+> Guo, Hao and Haijiang, Zhang, 2016, Development of double-pair double difference earthquake location algorithm for improving earthquake locations, GJI, 208(1), 333-348.
 
 <h4> <u> Warranty and Licensing </u> </h4>
 
