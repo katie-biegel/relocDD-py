@@ -44,6 +44,12 @@
 	<li> utm </li>
 </ul>
 
+<h5> <u> Running RelocDD-py: </u> </h5>
+
+A quick guide to running, relocDD-py can be found in RelocDD_QuickStart.pdf. You should be able to use this guide to run most of the basic functionalities. Sample input files are included in the "sample_inputfiles" folder. This includes the run.inp file, updated ph2dt.inp file, and a sample hypoDD.inp file that remains unchanged from hypoDD v 1.3.
+
+For any questions and/or issues in running relocDD-py, please reach out to kmbiegel@ucdavis.edu.
+
 <h5> <u> IF USING TO BUILD CROSS CORRELATION DT FILES: </u> </h5>
 
 <p> For problems with large number of data, it is often best to run multi-process cross-correlations. While this software includes scripts to build cross-correlation differential time files for both single-process and multi-process workflows, the multi-process workflow does require usage of the <strong> MPI4PY </strong> package.  Installation instructions for that package can be found here: https://mpi4py.readthedocs.io/en/stable/install.html </p>
@@ -94,4 +100,4 @@
 
 <p> If you have any issues with installation or usage of <strong> RELOCDD-PY </strong>, please reach out! </p>
 
-<p> Katherine Biegel (katherine.biegel@ucalgary.ca) </p>
+<p> Katherine Biegel (kmbiegel@ucdavis.edu) </p>
