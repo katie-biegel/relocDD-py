@@ -1,0 +1,52 @@
+*************************
+* RUN.INP File --- Overall run input file assuming you use the provided run script
+**************************
+* Declare Necessary Folder Paths
+* Input File Folder
+/path/to/folder/
+* Data File Folder
+/path/to/folder/
+* Output Folder
+/path/to/folder
+**************************
+* Switch Variables
+* reloctype: Type of Relocation
+* 1 for event-pair (hypoDD)
+* 2 for station-pair
+* 3 for double-pair
+1
+* fileout:  File/Terminal Ouputs Switch
+* 0 for traditional run (output to file from ph2dt, read in to file in hypoDD, output all files)
+* 1 for combo run (remove intermediate output to file; combine some funcitonality)
+0
+* makedata: Synthetic modelling switch
+* 0 for real data
+* 1 for trigger synthetic model building (Must then use synth.inp as well)
+0
+* HYPOINVERSE Switch (for synthetic tests only)
+* 0 for no hypoinverse catalog (relocate from true)
+* 1 for generate hypoinverse catalog (relocated from catalog)
+
+**************************
+* Noise Variables
+* noiseswitch: Noise switch
+* 0 for no added noise
+* 1 for added noise
+0
+* noisediff: Noise difference switch
+* 0 if 1 noise added per measurement (i.e. adding noise in hypoDD)
+*        noise added to traveltime differences (dt_dt)
+* 1 if 2 noise (noise difference) added per measurement (i.e. adding noise in ph2dt)
+*        noise added to arrival times of P and S waves
+
+* stdcc: Std of noise for cc measurements
+0.001
+* stdt: Std of noise for ct measurements
+0.01
+**************************
+* Bootstrap Variables
+* nboot: No. of bootstrap iterations
+
+* nplot: Plot every nplot iterations in bootstrapping
+
+**************************
